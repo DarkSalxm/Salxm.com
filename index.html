@@ -18,9 +18,9 @@
 
         // Array of background images
         const backgrounds = [
-            'roach-dancing.gif',
-            'stux&demy.jpg',
-            'stux-working.png',
+            'https://pbs.twimg.com/media/Gdj17DCWsAAV1Bc?format=jpg&name=large',
+            'https://pbs.twimg.com/media/Gan_VifWEAAWD78?format=jpg&name=large',
+
             // Add more background images here
         ];
 
@@ -33,7 +33,7 @@
                 randomIndex = Math.floor(Math.random() * (backgrounds.length - 1)) + 1; // Ensure the first index is not selected
             }
             const selectedBackground = backgrounds[randomIndex];
-            document.getElementById('background').style.backgroundImage = `url('/static/backgrounds/${selectedBackground}')`;
+            document.getElementById('background').style.backgroundImage = `url("${selectedBackground}")`;
         }
 
         // Set random background on window load
