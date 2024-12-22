@@ -28,8 +28,12 @@
         const backgrounds = [
             'https://pbs.twimg.com/media/Gdj17DCWsAAV1Bc?format=jpg&name=large',
             'https://pbs.twimg.com/media/Gan_VifWEAAWD78?format=jpg&name=large',
+            'https://pbs.twimg.com/media/GZjPt-eWUAINrqR?format=jpg&name=4096x4096',
+            'https://pbs.twimg.com/media/GbCKgFiXQAE2eg9?format=jpg&name=large',
+            'https://pbs.twimg.com/media/GalG9zoXYAAWpBV?format=jpg&name=900x900',
+            'https://pbs.twimg.com/media/Gab6ay_WcAApqTi?format=jpg&name=large',
+            'https://pbs.twimg.com/media/GZYPn-VXYAAFhRy?format=jpg&name=large',
 
-            // Add more background images here
         ];
 
         // Function to set a random background image
@@ -44,8 +48,30 @@
             document.getElementById('background').style.backgroundImage = `url("${selectedBackground}")`;
         }
 
-        // Set random background on window load
-        window.onload = setRandomBackground;
+        // Timer pop-up logic
+        function showTimerPopup() {
+            const now = new Date();
+            const cstOffset = -6; // CST offset in hours from UTC
+            const currentCSTTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (cstOffset * 3600000));
+
+            const startHour = 19; // 7 PM CST
+            const endHour = 23; // 11 PM CST
+
+            if (currentCSTTime.getHours() >= startHour && currentCSTTime.getHours() < endHour) {
+                document.getElementById('timerPopup').classList.remove('hidden');
+            }
+        }
+
+        // Close pop-up
+        function closePopup() {
+            document.getElementById('timerPopup').classList.add('hidden');
+        }
+
+        // Set random background and show timer pop-up
+        window.onload = function () {
+            setRandomBackground();
+            showTimerPopup();
+        }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -91,6 +117,27 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Timer Pop-up -->
+    <div id="timerPopup" class="hidden fixed inset-0 flex items-center justify-center bg-black/70 z-50">
+        <div class="bg-white/20 backdrop-blur-md border-none text-white rounded-lg p-6 sm:p-8 max-w-lg text-center">
+            <h2 class="text-xl font-bold mb-4">Hey really quick, come say hi to me live!</h2>
+            <p class="text-sm sm:text-base mb-4">Catch me live on Twitch right now!</p>
+            <!-- Twitch Embed -->
+            <div class="relative w-full h-64 sm:h-72">
+                <iframe
+                    src="https://player.twitch.tv/?channel=darksalxm&parent=salxm.com"
+                    frameborder="0"
+                    allowfullscreen="true"
+                    scrolling="no"
+                    class="w-full h-full rounded-md">
+                </iframe>
+            </div>
+            <button onclick="closePopup()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 mt-4 rounded-md">
+                Close
+            </button>
         </div>
     </div>
 </body>
