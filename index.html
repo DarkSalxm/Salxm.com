@@ -26,6 +26,7 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        custom: ['Poppins', 'sans-serif'],
                     },
                 }
             }
@@ -33,7 +34,13 @@
     </script>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Particle.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <style>
         /* Lazy Loading Spinner */
@@ -48,6 +55,14 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Particle.js Container */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
     </style>
 
@@ -105,10 +120,17 @@
         window.onload = function () {
             setRandomBackground();
             showTimerPopup();
+
+            // Initialize Particle.js
+            particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/particles.js/2.0.0/particlesjs-config.json', function() {
+                console.log('Particles.js loaded');
+            });
         }
     </script>
 </head>
-<body class="font-sans">
+<body class="font-custom">
+    <div id="particles-js"></div>
+
     <div class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-600 to-blue-500 p-4 sm:p-6 md:p-8">
         <div id="background" class="absolute inset-0 bg-cover bg-center">
             <div class="absolute inset-0 backdrop-blur-md bg-black/40"></div>
@@ -125,27 +147,27 @@
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
                     <a href="https://twitch.tv/Darksalxm" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
-                        <img src="https://www.svgrepo.com/show/513005/twitch-182.svg" class="h-5 w-5 mr-2" alt="Twitch icon">
+                        <i class="fab fa-twitch mr-2"></i>
                         Twitch
                     </a>
                     <a href="https://www.tiktok.com/@salxmvt" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
-                        <img src="https://www.svgrepo.com/show/333611/tiktok.svg" class="h-5 w-5 mr-2" alt="TikTok icon">
+                        <i class="fab fa-tiktok mr-2"></i>
                         TikTok
                     </a>
                     <a href="https://x.com/Darksalxm" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" class="h-5 w-5 mr-2" alt="Twitter icon">
+                        <i class="fab fa-twitter mr-2"></i>
                         Twitter
                     </a>
                     <a href="https://youtube.com/@darksalxm" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
-                        <img src="https://www.svgrepo.com/show/513089/youtube-168.svg" class="h-5 w-5 mr-2" alt="YouTube icon">
+                        <i class="fab fa-youtube mr-2"></i>
                         YouTube
                     </a>
                     <a href="https://throne.com/darksalxm" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
-                        <img src="https://cdn.prod.website-files.com/656ef9c4ff72b65ef5e034ab/656ef9c4ff72b65ef5e034f9_Throne_Icon_Square_White_on_Gradient.svg" class="h-5 w-5 mr-2" alt="Throne icon">
+                        <i class="fas fa-crown mr-2"></i>
                         Throne
                     </a>
                     <a href="https://discord.gg/fbP4QZpy9w" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
-                        <img src="https://www.svgrepo.com/show/506463/discord.svg" class="h-5 w-5 mr-2" alt="Discord icon">
+                        <i class="fab fa-discord mr-2"></i>
                         Discord
                     </a>
                 </div>
@@ -161,4 +183,15 @@
             <!-- Twitch Embed -->
             <div class="relative w-full h-64 sm:h-72">
                 <iframe
-                    src="https://player.twitch.tv/?channel=darksalxm&parent=salxm.com" 
+                    src="https://player.twitch.tv/?channel=darksalxm&parent=salxm.com"
+                    height="100%"
+                    width="100%"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <button onclick="closePopup()" class="mt-4 py-2 px-4 bg-red-500 hover:bg-red-600 text-white rounded-md">Close</button>
+        </div>
+    </div>
+</body>
+</html>
