@@ -20,6 +20,7 @@
     <meta property="og:description" content="DarkSalxm - The Fake Vtuber. Come hang out and say hi on Twitch!">
     <meta property="og:image" content="https://salxm.com/assets/images/profile.jpg">
     <meta property="og:url" content="https://salxm.com">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://salxm.com">
     <link rel="icon" href="https://salxm.com/assets/favicon.ico">
     <title>DarkSalxm The Fake Vtuber</title>
@@ -72,12 +73,6 @@
             z-index: 0;
         }
 
-        /* Focus State for Accessibility */
-        a:focus {
-            outline: 2px dashed #ffffff;
-            outline-offset: 4px;
-        }
-
         /* Responsive Design Fixes */
         @media (max-width: 640px) {
             .text-center h1 {
@@ -88,16 +83,6 @@
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-        }
-
-        /* Dark Mode */
-        body.dark {
-            background: linear-gradient(to br, #1a202c, #2d3748);
-            color: white;
-        }
-
-        body.dark a {
-            background: rgba(255, 255, 255, 0.2);
         }
     </style>
 
@@ -163,26 +148,10 @@
             localStorage.setItem('popupClosed', true);
         }
 
-        // Dark Mode Toggle
-        function toggleDarkMode() {
-            const body = document.body;
-            body.classList.toggle('dark');
-            if (body.classList.contains('dark')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.removeItem('theme');
-            }
-        }
-
         // Initialize Functions
         window.onload = function () {
             setRandomBackground();
             showTimerPopup();
-
-            // Load Theme
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark');
-            }
 
             // Initialize Particle.js
             particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/particles.js/2.0.0/particlesjs-config.json', function() {
@@ -192,11 +161,6 @@
     </script>
 </head>
 <body class="font-custom">
-    <!-- Dark Mode Toggle Button -->
-    <button id="themeToggle" class="absolute top-4 right-4 text-white bg-gray-800 px-4 py-2 rounded" onclick="toggleDarkMode()">
-        Toggle Theme
-    </button>
-
     <div id="particles-js"></div>
 
     <div class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-600 to-blue-500 p-4 sm:p-6 md:p-8">
@@ -214,27 +178,27 @@
                     <p class="text-xs sm:text-sm md:text-base opacity-80 text-center">The Fake Vtuber</p>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
-                    <a href="https://twitch.tv/Darksalxm" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
+                    <a href="https://twitch.tv/Darksalxm" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
                         <i class="fab fa-twitch mr-2"></i>
                         Twitch
                     </a>
-                    <a href="https://www.tiktok.com/@salxmvt" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
+                    <a href="https://www.tiktok.com/@salxmvt" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
                         <i class="fab fa-tiktok mr-2"></i>
                         TikTok
                     </a>
-                    <a href="https://x.com/Darksalxm" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
+                    <a href="https://x.com/Darksalxm" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
                         <i class="fab fa-twitter mr-2"></i>
                         Twitter
                     </a>
-                    <a href="https://youtube.com/@darksalxm" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
+                    <a href="https://youtube.com/@darksalxm" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
                         <i class="fab fa-youtube mr-2"></i>
                         YouTube
                     </a>
-                    <a href="https://throne.com/darksalxm" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
+                    <a href="https://throne.com/darksalxm" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
                         <i class="fas fa-crown mr-2"></i>
                         Throne
                     </a>
-                    <a href="https://discord.gg/fbP4QZpy9w" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
+                    <a href="https://discord.gg/fbP4QZpy9w" class="flex items-center justify-center py-2 px-4 bg-white/20 hover:bg-white/30 border border-white/20 rounded-md transition duration-300">
                         <i class="fab fa-discord mr-2"></i>
                         Discord
                     </a>
