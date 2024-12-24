@@ -18,9 +18,11 @@
     <meta name="keywords" content="DarkSalxm, Vtuber, Twitch, Streaming, Fake Vtuber">
     <meta property="og:title" content="DarkSalxm The Fake Vtuber">
     <meta property="og:description" content="DarkSalxm - The Fake Vtuber. Come hang out and say hi on Twitch!">
-    <meta property="og:image" content="https://pbs.twimg.com/profile_images/1735758395053842432/b1LtYk42_400x400.jpg">
+    <meta property="og:image" content="https://salxm.com/assets/images/profile.jpg">
     <meta property="og:url" content="https://salxm.com">
     <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://salxm.com">
+    <link rel="icon" href="https://salxm.com/assets/favicon.ico">
     <title>DarkSalxm The Fake Vtuber</title>
 
     <!-- Tailwind CSS -->
@@ -39,6 +41,7 @@
     </script>
 
     <!-- Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Particle.js -->
@@ -84,7 +87,7 @@
     </style>
 
     <script>
-        // Optimized Background Image Logic
+        // Optimized Background Image Logic with LocalStorage
         const backgrounds = [
             'https://pbs.twimg.com/media/Gdj17DCWsAAV1Bc?format=jpg&name=large',
             'https://pbs.twimg.com/media/Gan_VifWEAAWD78?format=jpg&name=large',
@@ -96,26 +99,37 @@
         ];
 
         function setRandomBackground() {
-            const randomIndex = Math.floor(Math.random() * backgrounds.length);
-            const selectedBackground = backgrounds[randomIndex];
+            const storedBackground = localStorage.getItem('background');
             const backgroundElement = document.getElementById('background');
-
-            // Add a loading spinner until the image loads
             const spinner = document.createElement('div');
             spinner.className = 'loading-spinner';
             backgroundElement.appendChild(spinner);
 
-            // Preload the image
-            const img = new Image();
-            img.src = selectedBackground;
-            img.onload = function () {
-                backgroundElement.style.backgroundImage = `url("${selectedBackground}")`;
+            if (storedBackground) {
+                backgroundElement.style.backgroundImage = `url("${storedBackground}")`;
                 spinner.remove();
-            };
+            } else {
+                const randomIndex = Math.floor(Math.random() * backgrounds.length);
+                const selectedBackground = backgrounds[randomIndex];
+                const img = new Image();
+                img.src = selectedBackground;
+                img.onload = function () {
+                    backgroundElement.style.backgroundImage = `url("${selectedBackground}")`;
+                    localStorage.setItem('background', selectedBackground);
+                    spinner.remove();
+                };
+                img.onerror = function () {
+                    console.error('Failed to load background image.');
+                    spinner.remove();
+                };
+            }
         }
 
-        // Timer Pop-up Logic
+        // Timer Pop-up Logic with LocalStorage
         function showTimerPopup() {
+            const hasClosedPopup = localStorage.getItem('popupClosed');
+            if (hasClosedPopup) return;
+
             const now = new Date();
             const cstOffset = -6; // CST offset in hours from UTC
             const currentCSTTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (cstOffset * 3600000));
@@ -128,9 +142,10 @@
             }
         }
 
-        // Close Pop-up
+        // Close Pop-up and Save to LocalStorage
         function closePopup() {
             document.getElementById('timerPopup').classList.add('hidden');
+            localStorage.setItem('popupClosed', true);
         }
 
         // Initialize Functions
@@ -156,7 +171,7 @@
         <div class="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl bg-white/10 backdrop-blur-md border-none text-white rounded-lg p-6 sm:p-8">
             <div class="flex flex-col items-center space-y-6">
                 <div class="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white/50">
-                    <img src="https://pbs.twimg.com/profile_images/1735758395053842432/b1LtYk42_400x400.jpg" alt="Darksalxm's Avatar" class="object-cover w-full h-full">
+                    <img src="https://pbs.twimg.com/profile_images/1735758395053842432/b1LtYk42_400x400.jpg" alt="Darksalxm's Avatar" class="object-cover w-full h-full" loading="lazy">
                 </div>
                 <div class="text-center">
                     <h1 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 text-center">Darksalxm</h1>
@@ -207,7 +222,7 @@
                     allowfullscreen>
                 </iframe>
             </div>
-            <button onclick="closePopup()" class="mt-4 py-2 px-4 bg-red-500 hover:bg-red-600 text-white rounded-md">Close</button>
+            <button onclick="closePopup()" aria-label="Close the timer popup" class="mt-4 py-2 px-4 bg-red-500 hover:bg-red-600 text-white rounded-md">Close</button>
         </div>
     </div>
 </body>
